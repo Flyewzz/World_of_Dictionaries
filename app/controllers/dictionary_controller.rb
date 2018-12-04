@@ -1,19 +1,21 @@
 class DictionaryController < ApplicationController
+  before_action :authenticate_user!, except: []
   def new
     rus = params[:russian]
     eng = params[:english]
     dictionary_id = params[:dictionary_id]
-    @dictionaries = Dictionary.all
+    @dictionaries = current_user.dictionaries.all
     @message = false
     @error = false
     @color = 'green'
-    if Word.find_by_russian(rus) || Word.find_by_english(eng)
+    return if dictionary_id.nil?
+    if current_user.dictionaries.find(dictionary_id).words.find_by_russian(rus) || Dictionary.find(dictionary_id).words.find_by_english(eng)
       @message = true
       @error = true
       @color = 'red'
     else
       unless rus.nil? || eng.nil? || dictionary_id.nil?
-        Dictionary.find(dictionary_id).words.create(russian: rus, english: eng)
+        current_user.dictionaries.find(dictionary_id).words.create(russian: rus, english: eng)
         @message = true
       end
     end
@@ -24,7 +26,8 @@ class DictionaryController < ApplicationController
   end
 
   def index
-    @words = Word.all
+    users_dictionaries = current_user.dictionaries.all
+    @words = Word.where(dictionary: Dictionary.where(user: current_user))
     @empty = @words.count.zero?
   end
 

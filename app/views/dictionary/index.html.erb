@@ -3,6 +3,12 @@
   <title>Список пар слов</title>
 </head>
 <body>
+<% if user_signed_in? %>
+  Вы вошли, <%= current_user.email %> <br>
+  <%= link_to 'Выйти', destroy_user_session_path, method: :delete %>
+<% else %>
+  Вы - аноним
+<% end %>
 <% if @empty || @words.nil? %>
   <p style="color: red;">Нет ни одной пары слов</p>
 <% else %>

@@ -1,7 +1,17 @@
 <p id="notice"><%= notice %></p>
 
+<% if user_signed_in? %>
+  Вы вошли, <%= current_user.email %> <br>
+  <%= link_to 'Выйти', destroy_user_session_path, method: :delete %>
+<% else %>
+  Вы - аноним
+<% end %>
+
 <h1>Словари</h1>
 
+<% if @empty %>
+  <h3 style="color: red">У вас нет ни одного словаря!</h3>
+  <% else %>
 <ol>
   <% @dictionaries.each do |dictionary| %>
     <li>
@@ -12,7 +22,7 @@
     </li>
   <% end %>
 </ol>
-
+<% end %>
 <br>
 
 <%= link_to 'Новый словарь', new_dictionary_url %> <br>

@@ -1,10 +1,11 @@
 class DictionariesController < ApplicationController
   before_action :set_dictionary, only: [:show, :edit, :update, :destroy]
-
+  before_action :authenticate_user!, except: []
   # GET /dictionaries
   # GET /dictionaries.json
   def index
-    @dictionaries = Dictionary.all
+    @dictionaries = current_user.dictionaries.all
+    @empty = @dictionaries.count.zero?
   end
 
   # GET /dictionaries/1
@@ -33,7 +34,7 @@ class DictionariesController < ApplicationController
   # POST /dictionaries
   # POST /dictionaries.json
   def create
-    @dictionary = Dictionary.new(dictionary_params)
+    @dictionary = Dictionary.new(title: params[:dictionary][:title], user: current_user)
 
     respond_to do |format|
       if @dictionary.save
