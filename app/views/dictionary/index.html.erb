@@ -1,2 +1,30 @@
-<h1>Dictionary#index</h1>
-<p>Find me in app/views/dictionary/index.html.erb</p>
+<html>
+<head>
+  <title>Словарь</title>
+</head>
+<body>
+<% if @empty || @words.nil? %>
+  <p style="color: red;">Ваш словарь пуст</p>
+<% else %>
+  <table border="1" style="text-align: center">
+    <caption>Словарь</caption>
+    <thead>
+    <th>Русский</th>
+    <th>Английский</th>
+    <th>Удаление</th>
+    </thead>
+    <tbody>
+    <% @words.each do |word| %>
+      <tr>
+        <td> <%= word.russian %></td>
+        <td> <%= word.english %></td>
+        <td><a href="/dictionary/remove/<%= word.id %>" methods="delete">Удалить</a></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+<% end %>
+
+<%= link_to 'Добавить слово', '/dictionary/new' %>
+</body>
+</html>

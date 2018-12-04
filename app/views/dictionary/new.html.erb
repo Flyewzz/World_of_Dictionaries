@@ -1,2 +1,29 @@
-<h1>Dictionary#new</h1>
-<p>Find me in app/views/dictionary/new.html.erb</p>
+<html>
+<head>
+  <title>Добавление слова</title>
+  <script>
+
+  </script>
+</head>
+<body>
+
+<% if message %>
+<p style="color: <%= @color %>">
+  <% if @error %>
+    Произошла ошибка добавления пары!
+  <% else %>
+    Пара успешно добавлена!
+  <% end %>
+</p>
+<% end %>
+
+<%= form_tag(url: '/dictionary/new', method: 'post', remote: true, id: 'add_form') do %>
+  <%= label_tag 'Русский:' %>
+  <%= text_field_tag :russian %> <br>
+  <%= label_tag 'Английский:' %>
+  <%= text_field_tag :english %> <br>
+  <%= submit_tag 'Создать пару' %>
+<% end %>
+<%= link_to 'К словарю', dictionary_index_url %>
+</body>
+</html>
