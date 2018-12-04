@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_04_161526) do
+ActiveRecord::Schema.define(version: 2018_12_04_194604) do
 
   create_table "dictionaries", force: :cascade do |t|
     t.string "title"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 2018_12_04_161526) do
     t.string "english"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "dictionary_id"
   end
 
 end
