@@ -6,15 +6,19 @@ class DictionaryController < ApplicationController
     @error = false
     @color = 'green'
     if Word.find_by_russian(rus) || Word.find_by_english(eng)
+      @message = true
       @error = true
       @color = 'red'
     else
-      Word.create russian: rus, english: eng
+      if not rus.nil? || eng.nil?
+        Word.create russian: rus, english: eng
+        @message = true
+      end
     end
   end
 
   def add
-    
+
   end
 
   def index

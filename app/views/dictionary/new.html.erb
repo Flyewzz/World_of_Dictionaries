@@ -7,17 +7,17 @@
 </head>
 <body>
 
-<% if message %>
-<p style="color: <%= @color %>">
-  <% if @error %>
-    Произошла ошибка добавления пары!
-  <% else %>
-    Пара успешно добавлена!
-  <% end %>
-</p>
+<% if @message %>
+  <p style="color: <%= @color %>">
+    <% if @error %>
+      Произошла ошибка добавления пары!
+    <% else %>
+      Пара успешно добавлена!
+    <% end %>
+  </p>
 <% end %>
 
-<%= form_tag(url: '/dictionary/new', method: 'post', remote: true, id: 'add_form') do %>
+<%= form_tag(url: '/dictionary/new', method: 'post') do %>
   <%= label_tag 'Русский:' %>
   <%= text_field_tag :russian %> <br>
   <%= label_tag 'Английский:' %>
