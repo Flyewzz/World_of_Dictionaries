@@ -1,29 +1,19 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Dictionaries</h1>
+<h1>Словари</h1>
 
-<table>
-  <thead>
-  <tr>
-    <th>Title</th>
-    <th colspan="3"></th>
-  </tr>
-  </thead>
-
-  <tbody>
+<ol>
   <% @dictionaries.each do |dictionary| %>
-    <tr>
-      <td><%= dictionary.title %></td>
-      <td><a class="show_table" href="#" id="show_<%= dictionary.id %>">Show</a>
-        <div id="table_<%= dictionary.id %>"></div>
-      </td>
-      <td><%= link_to 'Edit', edit_dictionary_path(dictionary) %></td>
-      <td><%= link_to 'Destroy', dictionary, method: :delete, data: {confirm: 'Are you sure?'} %></td>
-    </tr>
+    <li>
+      <a class="show_table" id="<%= dictionary.id %>"><b><%= dictionary.title %></b></a>
+      <%= link_to 'Edit', edit_dictionary_path(dictionary) %>
+      <%= link_to 'Destroy', dictionary, method: :delete, data: {confirm: 'Are you sure?'} %> <br>
+      <div id="table_<%= dictionary.id %>"></div>
+    </li>
   <% end %>
-  </tbody>
-</table>
+</ol>
 
 <br>
 
-<%= link_to 'New Dictionary', new_dictionary_path %>
+<%= link_to 'Новый словарь', new_dictionary_url %> <br>
+<%= link_to 'Пары слов', dictionary_index_url %>

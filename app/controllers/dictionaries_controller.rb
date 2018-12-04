@@ -16,7 +16,7 @@ class DictionariesController < ApplicationController
   end
 
   def create_words_table(words)
-    result_table_string = "<table border='1'><thead><th>Русский</th><th>Английский</th></thead><tbody>"
+    result_table_string = "<table border='1' style='text-align:center'><thead><th>Русский</th><th>Английский</th></thead><tbody>"
     words.each { |word| result_table_string += "<tr><td>#{word.russian}</td><td>#{word.english}</td>" }
     result_table_string
   end

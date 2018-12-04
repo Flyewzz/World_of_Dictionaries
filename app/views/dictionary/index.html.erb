@@ -1,16 +1,17 @@
 <html>
 <head>
-  <title>Словарь</title>
+  <title>Список пар слов</title>
 </head>
 <body>
 <% if @empty || @words.nil? %>
-  <p style="color: red;">Ваш словарь пуст</p>
+  <p style="color: red;">Нет ни одной пары слов</p>
 <% else %>
   <table border="1" style="text-align: center">
-    <caption>Словарь</caption>
+    <caption>Пары слов</caption>
     <thead>
     <th>Русский</th>
     <th>Английский</th>
+    <th>Словарь</th>
     <th>Удаление</th>
     </thead>
     <tbody>
@@ -18,6 +19,7 @@
       <tr>
         <td> <%= word.russian %></td>
         <td> <%= word.english %></td>
+        <td> <%= word.dictionary.title %></td>
         <td><a href="/dictionary/remove/<%= word.id %>" methods="delete">Удалить</a></td>
       </tr>
     <% end %>
@@ -25,6 +27,7 @@
   </table>
 <% end %>
 
-<%= link_to 'Добавить слово', '/dictionary/new' %>
+<%= link_to 'Добавить пару', '/dictionary/new' %> <br>
+<%= link_to 'Просмотр словарей', dictionaries_url %>
 </body>
 </html>

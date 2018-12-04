@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :dictionaries
   get 'dictionary/new'
   post 'dictionary/new'
   get 'dictionary/index'
@@ -6,5 +7,5 @@ Rails.application.routes.draw do
   get 'dictionary/edit'
   get 'dictionary/interactive'
   get 'dictionary/remove/:id' => 'dictionary#destroy'
-  root 'dictionary#index'
+  root 'dictionaries#index'
 end
