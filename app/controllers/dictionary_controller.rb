@@ -2,6 +2,8 @@ class DictionaryController < ApplicationController
   def new
     rus = params[:russian]
     eng = params[:english]
+    dictionary_id = params[:dictionary_id]
+    @dictionaries = Dictionary.all
     @message = false
     @error = false
     @color = 'green'
@@ -10,8 +12,8 @@ class DictionaryController < ApplicationController
       @error = true
       @color = 'red'
     else
-      if not rus.nil? || eng.nil?
-        Word.create russian: rus, english: eng
+      unless rus.nil? || eng.nil? || dictionary_id.nil?
+        Dictionary.find(dictionary_id).words.create(russian: rus, english: eng)
         @message = true
       end
     end

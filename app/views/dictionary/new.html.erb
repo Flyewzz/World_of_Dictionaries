@@ -22,6 +22,7 @@
   <%= text_field_tag :russian %> <br>
   <%= label_tag 'Английский:' %>
   <%= text_field_tag :english %> <br>
+  <%= select_tag :dictionary_id, options_from_collection_for_select(@dictionaries, 'id', 'title') %> <br> <br>
   <%= submit_tag 'Создать пару' %>
 <% end %>
 <%= link_to 'К словарю', dictionary_index_url %>
