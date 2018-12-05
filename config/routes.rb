@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'test/settings'
+  get 'test/start'
+  get 'test/result'
   devise_for :users
   get 'persons/profile'
   resources :dictionaries
@@ -10,5 +13,5 @@ Rails.application.routes.draw do
   get 'dictionary/interactive'
   get 'dictionary/remove/:id' => 'dictionary#destroy'
   get 'persons/profile', as: 'user_root'
-  root 'dictionaries#index'
+  root 'test#settings'
 end

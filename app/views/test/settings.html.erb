@@ -1,0 +1,30 @@
+<html>
+<head>
+  <title>Параметры тестирования</title>
+</head>
+<body>
+<% if user_signed_in? %>
+  Вы вошли, <%= current_user.email %> <br>
+  <%= link_to 'Выйти', destroy_user_session_path, method: :delete %>
+<% else %>
+  Вы - аноним
+<% end %>
+
+<p>Выберите оптимальные настройки для начала тестирования:</p>
+
+<%= form_tag url_for(controller: 'test', action: 'start'), method: 'get' do %>
+  <%= label_tag 'Количество вопросов:' %>
+  <%= number_field_tag :count_of_questions %> <br>
+  <%= label_tag 'Выберите словари:' %> <br>
+  <% @dictionaries.each do |dictionary| %>
+    <%= check_box_tag 'dict[]', dictionary.id %>
+    <%= dictionary.title %> <br>
+  <% end %>
+  <%= submit_tag 'Начать тестирование' %>
+<% end %>
+
+<%= link_to 'Пары слов', dictionary_index_url %>
+<%= link_to 'Просмотр словарей', dictionaries_url %>
+</body>
+</html>
+

@@ -1,0 +1,21 @@
+<html>
+<head>
+  <title>Тестирование...</title>
+</head>
+<body>
+<% if user_signed_in? %>
+  Вы вошли, <%= current_user.email %> <br>
+  <%= link_to 'Выйти', destroy_user_session_path, method: :delete %>
+<% else %>
+  Вы - аноним
+<% end %>
+
+<ul>
+  <% @questions.each do |question| %>
+  <li><%= question.russian %> | <%= question.english %></li>
+  <% end %>
+</ul>
+
+<%= link_to 'Обратно к параметрам', test_settings_url %>
+</body>
+</html>
