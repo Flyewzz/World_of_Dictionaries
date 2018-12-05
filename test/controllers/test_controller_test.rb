@@ -16,4 +16,8 @@ class TestControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "right words" do
+    # get mark_factor (answers, answers_language, questions, count_of_questions)
+     assert true
+  end
 end

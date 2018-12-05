@@ -22,6 +22,8 @@ gem 'warden'
 
 gem 'bcrypt'
 
+gem 'rails-controller-testing'
+
 gem 'thread_safe'
 
 gem 'railties'

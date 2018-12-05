@@ -1,2 +1,19 @@
-<h1>Test#result</h1>
-<p>Find me in app/views/test/result.html.erb</p>
+<html>
+<head>
+  <title>Результаты тестирования</title>
+</head>
+<body>
+<% if user_signed_in? %>
+  Вы вошли, <%= current_user.email %> <br>
+  <%= link_to 'Выйти', destroy_user_session_path, method: :delete %>
+<% else %>
+  Вы - аноним
+<% end %>
+
+<h2>Процент правильности выполнения теста: <%= @mark %>%</h2>
+
+<%= link_to 'Обратно к параметрам', test_settings_url %>
+<%= link_to 'Пары слов', dictionary_index_url %>
+<%= link_to 'Просмотр словарей', dictionaries_url %>
+</body>
+</html>

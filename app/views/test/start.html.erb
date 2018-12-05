@@ -10,11 +10,23 @@
   Вы - аноним
 <% end %>
 
-<ul>
-  <% @questions.each do |question| %>
-  <li><%= question.russian %> | <%= question.english %></li>
-  <% end %>
-</ul>
+<%= form_tag url_for(controller: 'test', action: 'result'), method: 'get' do %>
+<%= hidden_field_tag :count_of_questions, @count_of_questions %>
+  <%= hidden_field_tag :answers_languages, @answers_languages %>
+  <%= hidden_field_tag :questions, @questions.map { |question| question.id}.join(' ') %>
+  <ul>
+    <% @questions.each_with_index do |question, number_of_question| %>
+      <% if @answers_languages[number_of_question] %>
+        <li>Слово: <%= question.english %></li>
+        <%= label_tag 'Русский эквивалент:' %> <%= text_field_tag "answer_#{number_of_question}" %>
+      <% else %>
+        <li>Слово: <%= question.russian %></li>
+        <%= label_tag 'Английский эквивалент:' %> <%= text_field_tag "answer_#{number_of_question}" %>
+      <% end %>
+    <% end %>
+  </ul>
+<%= submit_tag 'Отправить ответы' %>
+<% end %>
 
 <%= link_to 'Обратно к параметрам', test_settings_url %>
 </body>
