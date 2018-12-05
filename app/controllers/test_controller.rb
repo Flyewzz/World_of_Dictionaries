@@ -20,25 +20,36 @@ class TestController < ApplicationController
   def result
     answers = []
     @count_of_questions = params[:count_of_questions].to_i
-    @answers_languages = params[:answers_languages].split(' ').map { |text| ->{return true if text == 'true'; false}.call}
+    @answers_languages = params[:answers_languages].split(' ').map {|text| -> {return true if text == 'true'; false}.call}
     @questions = params[:questions].split(' ').map {|id| Word.find(id.to_i)}
     @count_of_questions.times {|index| answers << params["answer_#{index}"]}
-    @mark = (mark_factor(answers, @answers_languages, @questions, @count_of_questions) * 100).round
+    @result = mark_factor(answers, @answers_languages, @questions, @count_of_questions)
+    @mark, @wrong_answers = (@result[0] * 100).round, @result[1]
+    a = 5
   end
 
   def mark_factor(answers, answers_language, questions, count_of_questions)
     # Изначально считаем, что пользователь не ответил ни на один вопрос
     index = 0
+    wrong_answers = []
     right_answers = answers.count do |answer|
       result = false
       if answers_language[index]
-        result = true if questions[index].russian.downcase == answer.downcase
+        if questions[index].russian.downcase == answer.downcase
+          result = true
+        else
+          wrong_answers << questions[index]
+        end
       else
-        result = true if questions[index].english.downcase == answer.downcase
+        if questions[index].english.downcase == answer.downcase
+          result = true
+        else
+          wrong_answers << questions[index]
+        end
+        index += 1
+        result
       end
-      index += 1
-      result
     end
-    right_answers.to_d / count_of_questions # Возвращаем коэффициент "правильности" решения
+    {coefficient: right_answers.to_d / count_of_questions, wrong: wrong_answers} # Возвращаем коэффициент "правильности" решения
   end
 end

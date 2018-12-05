@@ -12,8 +12,16 @@
 
 <h2>Процент правильности выполнения теста: <%= @mark %>%</h2>
 
-<%= link_to 'Обратно к параметрам', test_settings_url %>
-<%= link_to 'Пары слов', dictionary_index_url %>
+<% if @wrong_answers.any? %>
+  <p>Неправильные ответы:</p>
+  <ul>
+    <% @wrong_answers.each do |answer| %>
+      <li>рус: <%= answer.russian %> | eng: <%= answer.english %></li>
+    <% end %>
+  </ul>
+<% end %>
+<%= link_to 'Обратно к параметрам', test_settings_url %> <br>
+<%= link_to 'Пары слов', dictionary_index_url %> <br>
 <%= link_to 'Просмотр словарей', dictionaries_url %>
 </body>
 </html>
