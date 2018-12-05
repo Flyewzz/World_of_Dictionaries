@@ -24,7 +24,7 @@ class TestController < ApplicationController
     @questions = params[:questions].split(' ').map {|id| Word.find(id.to_i)}
     @count_of_questions.times {|index| answers << params["answer_#{index}"]}
     @result = mark_factor(answers, @answers_languages, @questions, @count_of_questions)
-    @mark, @wrong_answers = (@result[0] * 100).round, @result[1]
+    @mark, @wrong_answers = (@result[:coefficient] * 100).round, @result[:wrong]
     a = 5
   end
 
@@ -46,9 +46,9 @@ class TestController < ApplicationController
         else
           wrong_answers << questions[index]
         end
-        index += 1
-        result
       end
+      index += 1
+      result
     end
     {coefficient: right_answers.to_d / count_of_questions, wrong: wrong_answers} # Возвращаем коэффициент "правильности" решения
   end
