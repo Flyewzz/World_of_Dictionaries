@@ -12,7 +12,7 @@
 
 <p>Выберите оптимальные настройки для начала тестирования:</p>
 
-<%= form_tag url_for(controller: 'test', action: 'start'), method: 'get' do %>
+<%= form_tag url_for(controller: 'test', action: 'start'), method: 'get', html: {novalidate: 'novalidate'} do %>
   <%= label_tag 'Количество вопросов:' %>
   <%= number_field_tag :count_of_questions %> <br>
   <%= label_tag 'Выберите словари:' %> <br>

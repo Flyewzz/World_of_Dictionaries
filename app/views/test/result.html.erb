@@ -10,15 +10,23 @@
   Вы - аноним
 <% end %>
 
-<h2>Процент правильности выполнения теста: <%= @mark %>%</h2>
+<h2>Правильность выполнения теста: <%= @mark %>%</h2>
 
 <% if @wrong_answers.any? %>
-  <p>Неправильные ответы:</p>
-  <ul>
-    <% @wrong_answers.each do |answer| %>
-      <li>рус: <%= answer.russian %> | eng: <%= answer.english %></li>
+<table border="1" style="text-align: center">
+  <caption>Ошибки</caption>
+  <thead>
+  <th>Правильный ответ</th>
+  <th>Ваш ответ</th>
+  </thead>
+  <tbody>
+    <% @wrong_answers.each do |question| %>
+    <tr><td style="color: green"><%= question[:right] %></td><td style="color: red"><%= question[:wrong] %></td></tr>
     <% end %>
-  </ul>
+  </tbody>
+  </table>
+<% else %>
+  <h4 style="color: green">Вы правильно перевели все слова!</h4>
 <% end %>
 <%= link_to 'Обратно к параметрам', test_settings_url %> <br>
 <%= link_to 'Пары слов', dictionary_index_url %> <br>

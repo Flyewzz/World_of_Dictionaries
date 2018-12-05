@@ -18,38 +18,39 @@ class TestController < ApplicationController
   end
 
   def result
-    answers = []
+    @answers = []
     @count_of_questions = params[:count_of_questions].to_i
     @answers_languages = params[:answers_languages].split(' ').map {|text| -> {return true if text == 'true'; false}.call}
     @questions = params[:questions].split(' ').map {|id| Word.find(id.to_i)}
-    @count_of_questions.times {|index| answers << params["answer_#{index}"]}
-    @result = mark_factor(answers, @answers_languages, @questions, @count_of_questions)
+    @count_of_questions.times {|index| @answers << params["answer_#{index}"]}
+    @result = mark_factor(@answers, @answers_languages, @questions, @count_of_questions)
     @mark, @wrong_answers = (@result[:coefficient] * 100).round, @result[:wrong]
     a = 5
   end
 
   def mark_factor(answers, answers_language, questions, count_of_questions)
-    # Изначально считаем, что пользователь не ответил ни на один вопрос
     index = 0
-    wrong_answers = []
+    wrong_answers = [] # Сюда заносим вопросы, на которые ответили неправильно
     right_answers = answers.count do |answer|
       result = false
-      if answers_language[index]
+      if answers_language[index] # Нужно узнать, проверяем мы русский или английский эквивалент слова
+        # result = true означает, что пользователь правильно перевел слово
         if questions[index].russian.downcase == answer.downcase
           result = true
         else
-          wrong_answers << questions[index]
+          wrong_answers << {right: questions[index].russian.downcase, wrong: answer.downcase}
         end
       else
         if questions[index].english.downcase == answer.downcase
           result = true
         else
-          wrong_answers << questions[index]
+          wrong_answers << {right: questions[index].english.downcase, wrong: answer.downcase}
         end
       end
       index += 1
       result
     end
-    {coefficient: right_answers.to_d / count_of_questions, wrong: wrong_answers} # Возвращаем коэффициент "правильности" решения
+    # Возвращаем коэффициент "правильности" решения и массив неправильных ответов
+    {coefficient: right_answers.to_d / count_of_questions, wrong: wrong_answers}
   end
 end
