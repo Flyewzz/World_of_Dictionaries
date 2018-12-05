@@ -7,6 +7,7 @@ $(document).ready(function () {
         }
         $.ajax({
             url: '/dictionaries/' + current_id,
+            dataType: 'json',
             success: function (data) {
                 let result_data;
                 if (data.empty) {

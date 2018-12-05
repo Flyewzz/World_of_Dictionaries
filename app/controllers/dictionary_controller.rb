@@ -1,5 +1,6 @@
 class DictionaryController < ApplicationController
   before_action :authenticate_user!, except: []
+
   def new
     rus = params[:russian]
     eng = params[:english]
@@ -26,7 +27,6 @@ class DictionaryController < ApplicationController
   end
 
   def index
-    users_dictionaries = current_user.dictionaries.all
     @words = Word.where(dictionary: Dictionary.where(user: current_user))
     @empty = @words.count.zero?
   end
