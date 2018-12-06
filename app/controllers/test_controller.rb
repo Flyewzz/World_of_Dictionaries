@@ -25,7 +25,6 @@ class TestController < ApplicationController
     @count_of_questions.times {|index| @answers << params["answer_#{index}"]}
     @result = mark_factor(@answers, @answers_languages, @questions, @count_of_questions)
     @mark, @wrong_answers = (@result[:coefficient] * 100).round, @result[:wrong]
-    a = 5
   end
 
   def mark_factor(answers, answers_language, questions, count_of_questions)

@@ -10,7 +10,7 @@ class DictionaryController < ApplicationController
     @error = false
     @color = 'green'
     return if dictionary_id.nil?
-    if current_user.dictionaries.find(dictionary_id).words.find_by_russian(rus) || Dictionary.find(dictionary_id).words.find_by_english(eng)
+    if current_user.dictionaries.find(dictionary_id).words.find_by_russian(rus) || current_user.dictionaries.find(dictionary_id).words.find_by_english(eng)
       @message = true
       @error = true
       @color = 'red'
