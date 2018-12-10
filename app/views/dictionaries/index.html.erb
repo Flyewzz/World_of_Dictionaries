@@ -1,3 +1,31 @@
+<html>
+<head>
+  <script>
+      $(document).ready(function () {
+          $('.show_table').click(function () {
+              let current_id = $(this).attr('id');
+              if (!$('#table_' + current_id).is(':empty')) {
+                  $('#table_' + current_id).html('');
+                  return;
+              }
+              $.ajax({
+                  url: '/dictionaries/' + current_id,
+                  dataType: 'json',
+                  success: function (data) {
+                      let result_data;
+                      if (data.empty) {
+                          result_data = "<p style='color:red'>Словарь не содержит ни одной пары слов</p>";
+                      } else {
+                          result_data = data.table;
+                      }
+                      $('#table_' + current_id).html(result_data);
+                  },
+              });
+          });
+      });
+  </script>
+</head>
+<body>
 <p id="notice"><%= notice %></p>
 
 <% if user_signed_in? %>
@@ -11,20 +39,23 @@
 
 <% if @empty %>
   <h3 style="color: red">У вас нет ни одного словаря!</h3>
-  <% else %>
-<ol>
-  <% @dictionaries.each do |dictionary| %>
-    <li>
-      <a class="show_table" id="<%= dictionary.id %>"><b><%= dictionary.title %></b></a>
-      <%= link_to 'Edit', edit_dictionary_path(dictionary) %>
-      <%= link_to 'Destroy', dictionary, method: :delete, data: {confirm: 'Are you sure?'} %> <br>
-      <div id="table_<%= dictionary.id %>"></div>
-    </li>
-  <% end %>
-</ol>
+<% else %>
+  <ol>
+    <% @dictionaries.each do |dictionary| %>
+      <li>
+        <a class="show_table" id="<%= dictionary.id %>"><b><%= dictionary.title %></b></a>
+        <%= link_to 'Edit', edit_dictionary_path(dictionary) %>
+        <%= link_to 'Destroy', dictionary, method: :delete, data: {confirm: 'Are you sure?'} %> <br>
+        <div id="table_<%= dictionary.id %>"></div>
+      </li>
+    <% end %>
+  </ol>
 <% end %>
 <br>
 
 <%= link_to 'Новый словарь', new_dictionary_url %> <br>
 <%= link_to 'Пары слов', dictionary_index_url %> <br>
 <%= link_to 'Словарный диктант', test_settings_url %> <br>
+
+</body>
+</html>
