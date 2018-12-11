@@ -1,14 +1,22 @@
 <html>
 <head>
-  <title>Тестирование...</title>
+  <title><%= t :testing %></title>
 </head>
 <body>
 <% if user_signed_in? %>
-  Вы вошли, <%= current_user.email %> <br>
-  <%= link_to 'Выйти', destroy_user_session_path, method: :delete %>
-<% else %>
-  Вы - аноним
+  <%= t :you_log_in %>, <%= current_user.email %> <br>
+  <%= link_to (t :logout), destroy_user_session_path, method: :delete %>
 <% end %>
+
+<%= content_tag :li do %>
+  <%= link_to 'Переключиться на английский', locale: :en %>
+<% end unless current_page? locale: :en %>
+
+<%= content_tag :li do %>
+  <%= link_to 'Switch to Russian', locale: :ru %>
+<% end unless current_page? locale: :ru %>
+
+<br>
 
 <%= form_tag url_for(controller: 'test', action: 'result'), method: 'get' do %>
 <%= hidden_field_tag :count_of_questions, @count_of_questions %>
@@ -17,17 +25,17 @@
   <ul>
     <% @questions.each_with_index do |question, number_of_question| %>
       <% if @answers_languages[number_of_question] %>
-        <li>Слово: <%= question.english %></li>
-        <%= label_tag 'Русский эквивалент:' %> <%= text_field_tag "answer_#{number_of_question}" %>
+        <li><%= t :word %>: <%= question.english %></li>
+        <%= label_tag t :rus_eq %> <%= text_field_tag "answer_#{number_of_question}" %>
       <% else %>
-        <li>Слово: <%= question.russian %></li>
-        <%= label_tag 'Английский эквивалент:' %> <%= text_field_tag "answer_#{number_of_question}" %>
+        <li><%= t :word %>: <%= question.russian %></li>
+        <%= label_tag t :en_eq %> <%= text_field_tag "answer_#{number_of_question}" %>
       <% end %>
     <% end %>
   </ul>
-<%= submit_tag 'Отправить ответы' %>
+<%= submit_tag t :send_answers %>
 <% end %>
 
-<%= link_to 'Обратно к параметрам', test_settings_url %>
+<%= link_to t(:back_settings), test_settings_url %>
 </body>
 </html>

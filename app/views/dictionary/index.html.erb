@@ -1,24 +1,33 @@
 <html>
 <head>
-  <title>Список пар слов</title>
+  <title><% t :list_pairs %></title>
 </head>
 <body>
 <% if user_signed_in? %>
-  Вы вошли, <%= current_user.email %> <br>
-  <%= link_to 'Выйти', destroy_user_session_path, method: :delete %>
-<% else %>
-  Вы - аноним
+  <%= t :you_log_in %>, <%= current_user.email %> <br>
+  <%= link_to (t :logout), destroy_user_session_path, method: :delete %>
 <% end %>
+
+<%= content_tag :li do %>
+  <%= link_to 'Переключиться на английский', locale: :en %>
+<% end unless current_page? locale: :en %>
+
+<%= content_tag :li do %>
+  <%= link_to 'Switch to Russian', locale: :ru %>
+<% end unless current_page? locale: :ru %>
+
+<br>
+
 <% if @empty || @words.nil? %>
-  <p style="color: red;">Нет ни одной пары слов</p>
+  <p style="color: red;"><%= t :no_pairs %></p>
 <% else %>
   <table border="1" style="text-align: center">
-    <caption>Пары слов</caption>
+    <caption><%= t :words_pair %></caption>
     <thead>
-    <th>Русский</th>
-    <th>Английский</th>
-    <th>Словарь</th>
-    <th>Удаление</th>
+    <th><%= t :rus %></th>
+    <th><%= t :eng %></th>
+    <th><%= t :dictionary %></th>
+    <th><%= t :deletion %></th>
     </thead>
     <tbody>
     <% @words.each do |word| %>
@@ -26,15 +35,15 @@
         <td> <%= word.russian %></td>
         <td> <%= word.english %></td>
         <td> <%= word.dictionary.title %></td>
-        <td><a href="/dictionary/remove/<%= word.id %>" methods="delete">Удалить</a></td>
+        <td><a href="/dictionary/remove/<%= word.id %>" methods="delete"><%= t :destroy %></a></td>
       </tr>
     <% end %>
     </tbody>
   </table>
 <% end %>
 
-<%= link_to 'Добавить пару', '/dictionary/new' %> <br>
-<%= link_to 'Просмотр словарей', dictionaries_url %> <br>
-<%= link_to 'Словарный диктант', test_settings_url %> <br>
+<%= link_to (t :create_pair), '/dictionary/new' %> <br>
+<%= link_to (t :show_dictionaries), dictionaries_url %> <br>
+<%= link_to (t :dictation), test_settings_url %> <br>
 </body>
 </html>

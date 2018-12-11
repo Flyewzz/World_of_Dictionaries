@@ -14,7 +14,7 @@
                   success: function (data) {
                       let result_data;
                       if (data.empty) {
-                          result_data = "<p style='color:red'>Словарь не содержит ни одной пары слов</p>";
+                          result_data = "<p style='color:red'><%= t :dictionary_no_contains %>></p>";
                       } else {
                           result_data = data.table;
                       }
@@ -29,23 +29,31 @@
 <p id="notice"><%= notice %></p>
 
 <% if user_signed_in? %>
-  Вы вошли, <%= current_user.email %> <br>
-  <%= link_to 'Выйти', destroy_user_session_path, method: :delete %>
-<% else %>
-  Вы - аноним
+  <%= t :you_log_in %>, <%= current_user.email %> <br>
+  <%= link_to (t :logout), destroy_user_session_path, method: :delete %>
 <% end %>
 
-<h1>Словари</h1>
+<%= content_tag :li do %>
+  <%= link_to 'Переключиться на английский', locale: :en %>
+<% end unless current_page? locale: :en %>
+
+<%= content_tag :li do %>
+  <%= link_to 'Switch to Russian', locale: :ru %>
+<% end unless current_page? locale: :ru %>
+
+<br>
+
+<h1><%= t :dictionaries %></h1>
 
 <% if @empty %>
-  <h3 style="color: red">У вас нет ни одного словаря!</h3>
+  <h3 style="color: red"><%= t :you_have_not_dictionaries %>!</h3>
 <% else %>
   <ol>
     <% @dictionaries.each do |dictionary| %>
       <li>
         <a class="show_table" id="<%= dictionary.id %>"><b><%= dictionary.title %></b></a>
-        <%= link_to 'Edit', edit_dictionary_path(dictionary) %>
-        <%= link_to 'Destroy', dictionary, method: :delete, data: {confirm: 'Are you sure?'} %> <br>
+        <%= link_to (t :edit), edit_dictionary_path(dictionary) %>
+        <%= link_to (t :destroy), dictionary, method: :delete, data: {confirm: (t :are_you_sure)} %> <br>
         <div id="table_<%= dictionary.id %>"></div>
       </li>
     <% end %>
@@ -53,9 +61,9 @@
 <% end %>
 <br>
 
-<%= link_to 'Новый словарь', new_dictionary_url %> <br>
-<%= link_to 'Пары слов', dictionary_index_url %> <br>
-<%= link_to 'Словарный диктант', test_settings_url %> <br>
+<%= link_to (t :new_dictionary), new_dictionary_url %> <br>
+<%= link_to (t :words_pair), dictionary_index_url %> <br>
+<%= link_to (t :dictation), test_settings_url %> <br>
 
 </body>
 </html>

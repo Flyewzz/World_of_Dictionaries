@@ -1,0 +1,77 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# The following keys must be escaped otherwise they will not be retrieved by
+# the default I18n backend:
+#
+# true, false, on, off, yes, no
+#
+# Instead, surround them with single quotes.
+#
+# en:
+#   'true': 'foo'
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
+
+ru:
+  optimal_settings: "Выберите оптимальные настройки для начала тестирования"
+  number_questions: "Количество вопросов"
+  choose_dictionaries: "Выберите словари"
+  test_start: "Начать тестирование"
+  words_pair: "Пары слов"
+  show_dictionaries: "Просмотр словарей"
+  rus_eq: "Русский эквивалент"
+  word: "Слово"
+  en_eq: "Английский эквивалент:"
+  send_answers: "Отправить ответы"
+  back_settings: "Обратно к параметрам"
+  test_results: "Результаты тестирования"
+  logout: "Выйти"
+  right_complete: "Правильность выполнения теста"
+  right_answer: "Правильный ответ"
+  your_answer: "Ваш ответ"
+  mistakes: "Ошибки"
+  you_right_translate: "Вы правильно перевели все слова"
+  add_word: "Добавление слова"
+  error_adding: "Произошла ошибка добавления пары"
+  pair_added: "Пара успешно добавлена"
+  rus: "Русский"
+  eng: "Английский"
+  create_pair: "Создать пару"
+  to_dictionary: "К словарю"
+  dictionary_no_contains: "Словарь не содержит ни одной пары слов"
+  no_pairs: "Нет ни одной пары слов"
+  you_log_in: "Вы вошли"
+  dictionaries: "Словари"
+  you_have_not_dictionaries: "У вас нет ни одного словаря"
+  edit: "Изменить"
+  are_you_sure: "Вы уверены?"
+  back: "Назад"
+  title: "Название словаря"
+  destroy: "Удалить"
+  new_dictionary: "Новый словарь"
+  dictation: "Словарный диктант"
+  test_settings: "Параметры тестирования"
+  testing: "Тестирование..."
+  dictionary: "Словарь"
+  deletion: "Удаление"
+  list_pairs: "Список пар слов"
+  new_dictionary_label: "Новый словарь"
+  edit_dictionary_label: "Редактирование словаря"
+
