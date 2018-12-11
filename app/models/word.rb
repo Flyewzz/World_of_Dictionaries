@@ -1,3 +1,4 @@
+# Words pair
 class Word < ApplicationRecord
   before_save {self.russian = russian.downcase; self.english = english.downcase}
   belongs_to :dictionary

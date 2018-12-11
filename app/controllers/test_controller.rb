@@ -1,5 +1,7 @@
+
+# Testing
 class TestController < ApplicationController
-  before_action :authenticate_user!, except: []
+  before_action :authenticate_user!
 
   def settings
     @dictionaries = current_user.dictionaries.all

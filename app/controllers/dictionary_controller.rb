@@ -1,5 +1,6 @@
+# Words pair
 class DictionaryController < ApplicationController
-  before_action :authenticate_user!, except: []
+  before_action :authenticate_user!
 
   def new
     rus = params[:russian]
@@ -10,14 +11,21 @@ class DictionaryController < ApplicationController
     @error = false
     @color = 'green'
     return if dictionary_id.nil?
-    if current_user.dictionaries.find(dictionary_id.to_i).words.find_by_russian(rus) || current_user.dictionaries.find(dictionary_id.to_i).words.find_by_english(eng)
+    if current_user.dictionaries.find(dictionary_id.to_i).words.find_by_russian(rus) ||
+        current_user.dictionaries.find(dictionary_id.to_i).words.find_by_english(eng)
       @message = true
       @error = true
       @color = 'red'
     else
       unless rus.nil? || eng.nil? || dictionary_id.nil?
-        current_user.dictionaries.find(dictionary_id.to_i).words.create(russian: rus, english: eng)
-        @message = true
+        new_pair = current_user.dictionaries.find(dictionary_id.to_i).words.new(russian: rus, english: eng)
+        if !new_pair.save
+          @message = true
+          @error = true
+          @color = 'red'
+        else
+          @message = true
+        end
       end
     end
   end
